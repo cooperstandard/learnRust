@@ -35,16 +35,26 @@ cargo test -p add-two-numbers
 
 ## Adding a New Problem
 
-1. Create a new directory using the LeetCode slug (e.g. `two-sum`, `valid-parentheses`).
-2. Inside, scaffold a binary crate:
+Run the scaffold script from the repo root. It will prompt for the title, LeetCode URL, and difficulty, then create the directory, `Cargo.toml`, `src/main.rs` stub, and `README.md`:
 
-   ```bash
-   cargo new --bin <problem-slug>
-   ```
+```bash
+./scripts/new-problem.sh <slug>
+```
 
-3. Replace the generated `src/main.rs` with your solution and add `#[cfg(test)] mod tests` with the LeetCode examples.
-4. Add a `README.md` to the problem directory containing the problem statement and the LeetCode link.
-5. No changes to the root `Cargo.toml` are needed. The wildcard `members` glob picks it up automatically as long as the directory name starts with a lowercase letter or digit and uses only lowercase letters, digits, and dashes.
+Example:
+
+```bash
+./scripts/new-problem.sh two-sum
+```
+
+Then:
+
+1. Fill in the README.md with the problem statement.
+2. Replace `todo!()` in `src/main.rs` with your solution.
+3. Add real `#[test]` cases based on the LeetCode examples.
+4. Run `cargo test -p <slug>` to verify.
+
+No changes to the root `Cargo.toml` are needed. The wildcard `members` glob picks up new directories automatically as long as the slug starts with a lowercase letter and uses only lowercase letters, digits, and dashes.
 
 ## Conventions
 
