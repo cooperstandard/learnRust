@@ -1,3 +1,4 @@
 [workspace]
-members = ["add-two-numbers"]
+members = ["[a-z][a-z0-9-]*"]
+exclude = ["target"]
 resolver = "2"
