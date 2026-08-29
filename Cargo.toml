@@ -1,0 +1,3 @@
+[workspace]
+members = ["add-two-numbers"]
+resolver = "2"
