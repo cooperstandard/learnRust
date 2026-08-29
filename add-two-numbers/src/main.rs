@@ -24,7 +24,15 @@ impl fmt::Display for ListNode {
                 None => break,
             }
         }
-        write!(f, "[{}]", values.iter().map(|v| v.to_string()).collect::<Vec<_>>().join(","))
+        write!(
+            f,
+            "[{}]",
+            values
+                .iter()
+                .map(|v| v.to_string())
+                .collect::<Vec<_>>()
+                .join(",")
+        )
     }
 }
 
@@ -32,7 +40,21 @@ pub fn add_two_numbers(
     l1: Option<Box<ListNode>>,
     l2: Option<Box<ListNode>>,
 ) -> Option<Box<ListNode>> {
-    todo!()
+    let l1 = to_vec(l1);
+    let l2 = to_vec(l2);
+    let mut result = Vec::new();
+    let mut carry = 0;
+    let mut i = 0;
+    while i < l1.len() || i < l2.len() || carry > 0 {
+        let mut sum = carry;
+        sum += l1.get(i).copied().unwrap_or(0);
+        sum += l2.get(i).copied().unwrap_or(0);
+        result.push(sum % 10);
+        carry = sum / 10;
+        i += 1;
+    }
+
+    from_vec(result)
 }
 
 fn from_vec(values: Vec<i32>) -> Option<Box<ListNode>> {
@@ -84,7 +106,10 @@ mod tests {
     fn example_3() {
         let l1 = from_vec(vec![9, 9, 9, 9, 9, 9, 9]);
         let l2 = from_vec(vec![9, 9, 9, 9]);
-        assert_eq!(to_vec(add_two_numbers(l1, l2)), vec![8, 9, 9, 9, 0, 0, 0, 1]);
+        assert_eq!(
+            to_vec(add_two_numbers(l1, l2)),
+            vec![8, 9, 9, 9, 0, 0, 0, 1]
+        );
     }
 
     #[test]
