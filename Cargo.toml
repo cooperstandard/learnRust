@@ -1,4 +1,4 @@
 [workspace]
 members = ["[a-z][a-z0-9-]*"]
-exclude = ["target"]
+exclude = ["target", "scripts"]
 resolver = "2"
