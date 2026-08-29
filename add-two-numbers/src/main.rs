@@ -32,24 +32,7 @@ pub fn add_two_numbers(
     l1: Option<Box<ListNode>>,
     l2: Option<Box<ListNode>>,
 ) -> Option<Box<ListNode>> {
-    let mut dummy_head = Box::new(ListNode::new(0));
-    let mut p = l1.as_deref();
-    let mut q = l2.as_deref();
-    let mut current = &mut dummy_head;
-    let mut carry = 0;
-
-    while p.is_some() || q.is_some() || carry != 0 {
-        let x = p.map_or(0, |node| node.val);
-        let y = q.map_or(0, |node| node.val);
-        let sum = x + y + carry;
-        carry = sum / 10;
-        current.next = Some(Box::new(ListNode::new(sum % 10)));
-        current = current.next.as_mut().unwrap();
-        p = p.and_then(|node| node.next.as_deref());
-        q = q.and_then(|node| node.next.as_deref());
-    }
-
-    dummy_head.next
+    todo!()
 }
 
 fn from_vec(values: Vec<i32>) -> Option<Box<ListNode>> {
