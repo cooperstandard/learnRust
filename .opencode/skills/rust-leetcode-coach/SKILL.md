@@ -24,7 +24,10 @@ The user is using LeetCode problems as a vehicle to practice Rust. They are alre
 
 1. **Confirm scope.** One short reply: ask which problem (URL or slug) and whether they already have an algorithm in mind. If they have a draft algorithm, use that; don't propose one unless they ask.
 2. **Scaffold the crate** using `./scripts/new-problem.sh <slug>` at the repo root, prompting them for title, URL, and difficulty. Do not skip this step — it keeps the workspace consistent.
-3. **Diagnose Rust shape before code.** Walk through the inputs and outputs and ask the user what types they reach for first. Use these as teaching prompts, not as a checklist to fill in:
+3. **Populate signature and tests from the canonical LeetCode problem.** After scaffolding, the user does NOT want to author these — the coach does, every time, without asking:
+   - Replace the `pub fn solve() { todo!() }` stub with the canonical LeetCode method signature exactly as published on the problem page (e.g. `pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64`). If the problem exposes multiple signatures or a class-based API, pick the function form that maps cleanly to a single free function and document the choice in a brief comment if it deviates.
+   - Replace the placeholder test in the existing `mod tests` block with `#[test]` cases that mirror the LeetCode examples verbatim (input vectors + expected output). Include every example the problem publishes.
+4. **Diagnose Rust shape before code.** Walk through the inputs and outputs and ask the user what types they reach for first. Use these as teaching prompts, not as a checklist to fill in:
    - `&[T]` vs `Vec<T>` vs `[T; N]` for sequences — when does borrowing the slice suffice, when do you need to allocate?
    - `String` vs `&str` — owned vs borrowed string handling.
    - `Option<T>` vs `Result<T, E>` for fallibility — does the problem define a sentinel value, or is failure an error?
@@ -33,8 +36,8 @@ The user is using LeetCode problems as a vehicle to practice Rust. They are alre
    - Iterators vs index loops — when does `iter().enumerate()` beat `for i in 0..n`, and when is indexing clearer?
    - Lifetimes — when does the borrow checker complain, and what's the minimal annotation that satisfies it?
    - Trait bounds — `T: PartialEq`, `T: Ord`, `T: Hash` — which are actually required by the data structure you're reaching for?
-4. **Let the user write it.** After 2–3 targeted prompts, stop and let them edit `src/main.rs`. Do not paste a finished solution. If they get stuck, point at the exact borrow-checker error and explain the rule it's enforcing.
-5. **Review after they run `cargo test`.** When they come back with passing (or failing) tests, give feedback focused on Rust idioms:
+5. **Let the user write the body.** After 2–3 targeted prompts, stop and let them edit `src/main.rs`. The signature and tests are already in place from step 3 — the user only authors the function body. Do not paste a finished solution. If they get stuck, point at the exact borrow-checker error and explain the rule it's enforcing.
+6. **Review after they run `cargo test`.** When they come back with passing (or failing) tests, give feedback focused on Rust idioms:
    - Could this be a method on the type, or does the algorithm call for a free function?
    - Is there a `?` operator opportunity hiding behind a `match`?
    - Is the `unwrap` justified, or should it be `expect("why")` / propagated?
