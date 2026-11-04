@@ -22,7 +22,7 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         );
     }
 
-    vec![]
+    unreachable!("problem guarantees exactly one valid pair")
 }
 
 fn main() {
@@ -61,10 +61,21 @@ mod tests {
     }
 
     #[test]
+    #[should_panic(expected = "problem guarantees exactly one valid pair")]
     fn no_solution() {
-        for nums in [vec![], vec![3], vec![1, 2, 8]] {
-            assert!(two_sum(nums, 6).is_empty());
-        }
+        two_sum(vec![1, 2, 8], 6);
+    }
+
+    #[test]
+    #[should_panic(expected = "problem guarantees exactly one valid pair")]
+    fn empty_input() {
+        two_sum(vec![], 6);
+    }
+
+    #[test]
+    #[should_panic(expected = "problem guarantees exactly one valid pair")]
+    fn single_element_cannot_match_itself() {
+        two_sum(vec![3], 6);
     }
 
     #[test]
@@ -73,7 +84,8 @@ mod tests {
     }
 
     #[test]
+    #[should_panic(expected = "problem guarantees exactly one valid pair")]
     fn overflowing_sum_is_not_a_match() {
-        assert!(two_sum(vec![i32::MAX, 1], i32::MIN).is_empty());
+        two_sum(vec![i32::MAX, 1], i32::MIN);
     }
 }

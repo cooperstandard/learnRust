@@ -28,7 +28,8 @@ pair, and the indices may be returned in either order.
 [src/main.rs](src/main.rs) uses a one-pass `HashMap` of previously seen values
 and their indices. Each value's complement is checked before insertion, so an
 element cannot match itself. Complement subtraction is checked to avoid integer
-overflow. If no pair exists, the function returns an empty vector.
+overflow. If no pair exists, the function panics because the input violates the
+problem's guarantee.
 
 Expected time complexity is **O(n)**, with **O(n)** extra space.
 

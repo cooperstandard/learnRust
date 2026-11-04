@@ -7,6 +7,10 @@ name = "add-two-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "contains-duplicate"
+version = "0.1.0"
+
+[[package]]
 name = "diameter-of-a-binary-tree"
 version = "0.1.0"
 
