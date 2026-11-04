@@ -5,11 +5,14 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
 
     for (index, num) in nums.into_iter().enumerate() {
         if let Some(complement) = target.checked_sub(num) {
-            if let Some(&partner_index) = seen.get(&complement) {
-                return vec![
-                    partner_index,
-                    i32::try_from(index).expect("input index exceeds i32::MAX"),
-                ];
+            match seen.get(&complement) {
+                Some(&partner_index) => {
+                    return vec![
+                        partner_index,
+                        i32::try_from(index).expect("input index exceeds i32::MAX"),
+                    ];
+                }
+                None => {}
             }
         }
 
