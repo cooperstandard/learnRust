@@ -19,5 +19,9 @@ name = "median-of-two-sorted-arrays"
 version = "0.1.0"
 
 [[package]]
+name = "two-sum"
+version = "0.1.0"
+
+[[package]]
 name = "valid-parentheses"
 version = "0.1.0"
